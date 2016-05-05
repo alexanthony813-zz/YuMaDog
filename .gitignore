@@ -3,3 +3,5 @@ assets/bundles
 node_modules/
 config.py
 config.pyc
+db.sqlite3
+app/migrations

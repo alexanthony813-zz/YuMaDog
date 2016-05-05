@@ -106,11 +106,18 @@ def saveDog(dog, zip_to_search):
 
     new_dog.save()
 
+def serialize_dogs(dog_ls):
+    json_dogs = []
+
+    for dog in dog_ls:
+        json_dogs.append(dog.serialize())
+
+    return json_dogs
 
 def index(request):
     all_dogs = models.Dog.objects.filter(zip_code='94103')
-    print len(all_dogs)
-    return render(request, 'home.html', {'dogs': all_dogs})
+
+    return JsonResponse({'dogs': serialize_dogs(all_dogs)})
 
 def search_dogs(request):
     last_offset = 0
@@ -120,6 +127,7 @@ def search_dogs(request):
 
     # using enumerate because the "count" parameter does not appear to work consistently
     for i, dog in enumerate(api.pet_find(output='full',count=count, location=zip_to_search, animal='dog', offset=last_offset, lastOffset=last_offset)):
+        print dog['name']
         last_offset+=count
         dogs.append(dog)
         if i == 40:
@@ -132,7 +140,6 @@ def search_dogs(request):
     specific_dogs = models.Dog.objects.filter(zip_code=zip_to_search)
     print 'dogs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
     print specific_dogs
-    # all_dogs = models.Dog.objects.all()
     json_dogs = []
 
     for dog in specific_dogs:

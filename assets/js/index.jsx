@@ -186,7 +186,12 @@ var App = React.createClass({
     });
   },
   handleSearch: function(input){
+    if(input===""){
+      return;
+    }
  
+    input = (Number(input)) ? {zip_code: input} : {city: input};
+    console.log('input>>>>>>', input)
     var result = function(data){
       this.setState({
         currentVideo : data.items[0],
@@ -195,12 +200,15 @@ var App = React.createClass({
     // window.videoData = data.items;
     }
     
-    //other ajax call here
-    searchYouTube(input,result);
+    //ajax call
+    // searchDogs(input, result);
+    searchDogs(input, function(dogs){
+      console.log('dogs!!!!!!!!!!!',dogs)
+    })
   },
   componentDidMount: function(){
-    // ajax call here sucka
-    getDogs({}, function(dogs){
+    // ajax call
+    getDogs({}, function(dogs,err){
       console.log(dogs)
     })
       this.setState({
@@ -227,8 +235,6 @@ ReactDOM.render(< App/>, document.getElementById('react-app'));
 
 
 function getDogs(specs, callback){
-  //change variable for request object here, refactor to ternary?
-  console.log("DOOOOOOGSSS")
   $.ajax({
     url: 'dogs/',
     type: 'GET',
@@ -241,11 +247,18 @@ function getDogs(specs, callback){
   })
 }
 
-
-
-
-
-
+function searchDogs(specs, callback){
+  $.ajax({
+    url: 'dogs/search/',
+    type: 'GET',
+    data: specs,
+    contentType: 'application/json',
+    success: callback,
+    error: function(data){
+      console.log("ERROR, ajaxfail")
+    }
+  })  
+}
 
 
 

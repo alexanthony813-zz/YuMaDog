@@ -21,6 +21,7 @@ from . import views
 
 urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='home.html'), name='home'),
-    url(r'^dogs/', views.index),
+    url(r'^dogs/$', views.index),
+    url(r'^dogs/search/$', views.search_dogs),
     url(r'^admin/', include(admin.site.urls)),
 ]
