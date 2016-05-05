@@ -1,6 +1,9 @@
-module.exports = (props) => {
- 
-  console.log(props)
+require('react/lib/DOMProperty').ID_ATTRIBUTE_NAME = 'data-myid';
+var React = require('react');
+
+module.exports = function(props){
+  // console.log('heres props?')
+  // console.log(props)
   return ( 
     <div className="video-list-entry">
       <div className="media-left media-middle">
@@ -14,3 +17,5 @@ module.exports = (props) => {
   )
 
 };
+
+console.log('video-list-entry')

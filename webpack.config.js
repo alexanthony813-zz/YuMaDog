@@ -23,6 +23,10 @@ module.exports = {
   },
 
   resolve: {
+    alias: {
+      "react": __dirname + '/node_modules/react',
+      "react/addons": __dirname + '/node_modules/react/addons',
+    },
     modulesDirectories: ['node_modules', 'bower_components'],
     extensions: ['', '.js', '.jsx']
   },

@@ -1,10 +1,13 @@
-module.exports = class VideoPlayer extends React.Component{
+require('react/lib/DOMProperty').ID_ATTRIBUTE_NAME = 'data-myid';
+var React = require('react');
+
+module.exports = React.createClass({
   
   // constructor(props){
   //   super(props);
   // }
   
-  render(){
+  render:function(){
     if(!this.props.item){
       return (<div>Loading...</div>)
     } else {
@@ -12,7 +15,7 @@ module.exports = class VideoPlayer extends React.Component{
       return(
         <div className="video-player">
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
+            // <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
           </div>
           <div className="video-player-details">
             <h3>{this.props.item.snippet.title}</h3>
@@ -22,5 +25,6 @@ module.exports = class VideoPlayer extends React.Component{
       )
     }
   }
+});
 
-}
+console.log('vid')
