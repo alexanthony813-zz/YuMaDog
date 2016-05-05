@@ -13,5 +13,3 @@ module.exports = function(props){
     </div> 
   );
 };
-
-console.log('search')

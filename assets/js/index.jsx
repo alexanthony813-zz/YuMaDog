@@ -173,72 +173,7 @@ var Nav = require('./Nav');
 var VideoPlayer = require('./VideoPlayer');
 var VideoList = require('./VideoList');
 
-// class App extends React.Component {
-  
-//   constructor(props){
-//     super(props);
-
-//     this.state = {
-//       currentVideo : null,
-//       videoList : []
-//     };
-//   }
-
-//   handleClick(video){
-//     this.setState({
-//       currentVideo : video
-//     });
-//   }
-
-//   handleSearch(input){
- 
-//     var result = (data) => {
-//       this.setState({
-//         currentVideo : data.items[0],
-//         videoList : data.items
-//       })
-//     // window.videoData = data.items;
-//     }
-    
-//     searchYouTube(input,result);
-//   }
-
-//   componentDidMount(){
-//     searchYouTube("kittens", (videos) =>{
-//       console.log("videos : ", videos.items)
-//       this.setState({
-//         videoList : videos.items,
-//         currentVideo : videos.items[0]
-//       })
-//     })
-//   }
-
-//   render(){ 
-//     return (
-//       <div>
-//         <Nav searchHandler={this.handleSearch.bind(this)} />
-//         <div className="col-md-7">
-//           <VideoPlayer item = {this.state.currentVideo} />
-//         </div>
-//         <p>HELLLOOO</p>
-//         <div className="col-md-5">
-//           <VideoList clickHandler = {this.handleClick.bind(this)} item = {this.state.videoList} />
-//         </div>
-//       </div>
-//     );
-//   }
-
-// }
-
 var App = React.createClass({
-  // constructor: function(props){
-  //   // super();
-
-  //   this.state = {
-  //     currentVideo : null,
-  //     videoList : []
-  //   };
-  // },
   getInitialState:function(){
     return {
       currentVideo : null,
@@ -252,7 +187,7 @@ var App = React.createClass({
   },
   handleSearch: function(input){
  
-    var result = (data) => {
+    var result = function(data){
       this.setState({
         currentVideo : data.items[0],
         videoList : data.items
@@ -260,16 +195,14 @@ var App = React.createClass({
     // window.videoData = data.items;
     }
     
+    //other ajax call here
     searchYouTube(input,result);
   },
   componentDidMount: function(){
-    // searchYouTube("kittens", (videos) =>{
-    //   console.log("videos : ", videos.items)
-    //   this.setState({
-    //     videoList : videos.items,
-    //     currentVideo : videos.items[0]
-    //   })
-    // })
+    // ajax call here sucka
+    getDogs({}, function(dogs){
+      console.log(dogs)
+    })
       this.setState({
         videoList : exampleVideoData,
         currentVideo : exampleVideoData[0]
@@ -278,7 +211,6 @@ var App = React.createClass({
   render : function(){
     return (
       <div>
-        <div>Here</div>
         <Nav searchHandler={this.handleSearch} />
         <div className="col-md-7">
           <VideoPlayer item = {this.state.currentVideo} />
@@ -292,3 +224,57 @@ var App = React.createClass({
 })
 
 ReactDOM.render(< App/>, document.getElementById('react-app'));
+
+
+function getDogs(specs, callback){
+  //change variable for request object here, refactor to ternary?
+  console.log("DOOOOOOGSSS")
+  $.ajax({
+    url: 'dogs/',
+    type: 'GET',
+    data: {},
+    contentType: 'application/json',
+    success: callback,
+    error: function(data){
+      console.log("ERROR, ajaxfail")
+    }
+  })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

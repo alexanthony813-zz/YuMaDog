@@ -17,5 +17,3 @@ module.exports = function(props){
   )
 
 };
-
-console.log('video-list-entry')
