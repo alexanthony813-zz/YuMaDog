@@ -15,10 +15,13 @@ module.exports = React.createClass({
       return(
         <div className="video-player">
           <div className="video-player-details">
-            <h3>{this.props.item["name"]}</h3>
-            <div>{this.props.item["age"]} {this.props.item["sex"]}</div>
-            <div>{this.props.item["size"]}</div>
-            <img className="embed-responsive-item" src={this.props.item["third_photo"]} />
+            <div className="dog-info container-fluid">
+              <h3>{this.props.item["name"]}</h3>
+              <div>{this.props.item["age"]} {this.props.item["sex"]}</div>
+              <div>{this.props.item["size"]}</div>
+            </div>
+            <br/>
+            <img className="profile_photo" src={this.props.item["third_photo"]} />
             <p>{this.props.item["description"]}</p>
           </div>
           <div className="embed-responsive embed-responsive-16by9">
