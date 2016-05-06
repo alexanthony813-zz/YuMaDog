@@ -37,15 +37,22 @@ def user_logout(request):
 
 def saveDog(dog, zip_to_search):
     # prevents duplication
-    if len(models.Dog.objects.filter(pet_id=dog['shelterPetId']))>0:
+    if len(models.Dog.objects.filter(pet_id=dog['shelterPetId'])) > 0:
         return
 
     # ends save if no pictures
-    if len(dog['photos']) == 0:
+    if len(dog['photos']) < 6:
         return
 
     photos = dog['photos']
+    print 'number of photos', len(photos)
     profile_photo_url = photos[0]['url']
+    # for redis integration
+    second_photo = photos[1]['url']
+    third_photo = photos[2]['url']
+    fourth_photo = photos[3]['url']
+    fifth_photo = photos[4]['url']
+    sixth_photo = photos[5]['url']
     pet_id = dog['shelterPetId']
     name = dog['name']
     age = dog['age']
@@ -73,7 +80,7 @@ def saveDog(dog, zip_to_search):
     breeds = dog['breeds']
 
 
-    new_dog = models.Dog.create(pet_id, name, sex, age, contact_email, contact_phone, city, zip_code, size, description, profile_photo_url)
+    new_dog = models.Dog.create(pet_id, name, sex, age, contact_email, contact_phone, city, zip_code, size, description, profile_photo_url, second_photo, third_photo, fourth_photo, fifth_photo, sixth_photo)
     new_dog.save()
 
     # get new dog primary id
@@ -127,7 +134,7 @@ def search_dogs(request):
 
     # using enumerate because the "count" parameter does not appear to work consistently
     for i, dog in enumerate(api.pet_find(output='full',count=count, location=zip_to_search, animal='dog', offset=last_offset, lastOffset=last_offset)):
-        print dog['name']
+
         last_offset+=count
         dogs.append(dog)
         if i == 40:
@@ -136,10 +143,8 @@ def search_dogs(request):
     for dog in dogs:
         saveDog(dog, zip_to_search)
 
-    # print str(zip_to_search)
     specific_dogs = models.Dog.objects.filter(zip_code=zip_to_search)
-    print 'dogs!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print specific_dogs
+
     json_dogs = []
 
     for dog in specific_dogs:

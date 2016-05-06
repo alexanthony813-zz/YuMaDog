@@ -11,18 +11,22 @@ module.exports = React.createClass({
     if(!this.props.item){
       return (<div>Loading...</div>)
     } else {
-      var url = `https://www.youtube.com/embed/${this.props.item.id.videoId}?autoplay=1`;
+      console.log('propers',this.props.item)
       return(
         <div className="video-player">
           <div className="video-player-details">
-            <h3>{this.props.item.snippet.title}</h3>
-            <div>{this.props.item.snippet.description}</div>
+            <h3>{this.props.item["name"]}</h3>
+            <div>{this.props.item["age"]} {this.props.item["sex"]}</div>
+            <div>{this.props.item["size"]}</div>
+            <img className="embed-responsive-item" src={this.props.item["third_photo"]} />
+            <p>{this.props.item["description"]}</p>
           </div>
           <div className="embed-responsive embed-responsive-16by9">
-            <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
           </div>
         </div>
       )
     }
   }
 });
+            // <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
+      // var url = `https://www.youtube.com/embed/${this.props.item.id.videoId}?autoplay=1`;

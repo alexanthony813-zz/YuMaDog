@@ -55,6 +55,11 @@ class Dog(models.Model):
     adoptable = models.NullBooleanField(null=True, default=None)
     fosterable = models.NullBooleanField(null=True, default=None)
     profile_photo_url = models.CharField(null=True, default='', max_length=200)
+    second_photo = models.CharField(null=True, default='', max_length=200)
+    third_photo = models.CharField(null=True, default='', max_length=200)
+    fourth_photo = models.CharField(null=True, default='', max_length=200)
+    fifth_photo = models.CharField(null=True, default='', max_length=200)
+    sixth_photo = models.CharField(null=True, default='', max_length=200)
 
     def __str__(self):
         return self.name
@@ -71,12 +76,17 @@ class Dog(models.Model):
             'zip_code': self.zip_code,
             'size': self.size,
             'description': self.description,
-            'profile_photo_url': self.profile_photo_url
+            'profile_photo_url': self.profile_photo_url,
+            'second_photo': self.second_photo,
+            'third_photo': self.third_photo,
+            'fourth_photo': self.fourth_photo,
+            'fifth_photo': self.fifth_photo,
+            'sixth_photo': self.sixth_photo
         }
 
     @classmethod
-    def create(cls, pet_id, name, sex, age, contact_email, contact_phone, city, zip_code, size, description, profile_photo_url):
-        dog = cls(pet_id=pet_id, name=name, sex=sex, age=age, contact_email=contact_email, contact_phone=contact_phone, city=city, zip_code=zip_code,size=size, description=description, profile_photo_url=profile_photo_url)
+    def create(cls, pet_id, name, sex, age, contact_email, contact_phone, city, zip_code, size, description, profile_photo_url, second_photo, third_photo, fourth_photo, fifth_photo, sixth_photo):
+        dog = cls(pet_id=pet_id, name=name, sex=sex, age=age, contact_email=contact_email, contact_phone=contact_phone, city=city, zip_code=zip_code,size=size, description=description, profile_photo_url=profile_photo_url, second_photo=second_photo, third_photo=third_photo, fourth_photo=fourth_photo, fifth_photo=fifth_photo, sixth_photo=sixth_photo)
         return dog
 
 
