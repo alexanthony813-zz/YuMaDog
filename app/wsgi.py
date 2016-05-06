@@ -7,7 +7,16 @@ For more information on this file, see
 https://docs.djangoproject.com/en/1.8/howto/deployment/wsgi/
 """
 
-import os
+import os, sys
+
+# add the root directory path into the sys.path
+sys.path.append('../')
+
+# add the virtualenv site-packages path to the sys.path
+sys.path.append('/Library/Frameworks/Python.framework/Versions/2.7/bin/virtualenv/Lib/site-packages')
+
+# poiting to the project settings
+os.environ.setdefault("settings.py", "app.settings")
 
 from django.core.wsgi import get_wsgi_application
 from whitenoise.django import DjangoWhiteNoise
