@@ -3,10 +3,6 @@ var React = require('react');
 
 module.exports = React.createClass({
   
-  // constructor(props){
-  //   super(props);
-  // }
-  
   render:function(){
     if(!this.props.item){
       return (<div>Loading...</div>)
@@ -15,10 +11,15 @@ module.exports = React.createClass({
       return(
         <div className="video-player">
           <div className="video-player-details">
-            <div className="dog-info container-fluid">
+            <div className="dog-info">
               <h3>{this.props.item["name"]}</h3>
               <div>{this.props.item["age"]} {this.props.item["sex"]}</div>
               <div>{this.props.item["size"]}</div>
+            </div>
+            <div className="contact-info">
+              <div>{this.props.item["city"]}</div>
+              <div>{this.props.item["contact_email"]}</div>
+              <div>{this.props.item["contact_phone"]}</div>
             </div>
             <br/>
             <img className="profile_photo" src={this.props.item["third_photo"]} />
@@ -31,5 +32,3 @@ module.exports = React.createClass({
     }
   }
 });
-            // <iframe className="embed-responsive-item" src={url} allowFullScreen></iframe>
-      // var url = `https://www.youtube.com/embed/${this.props.item.id.videoId}?autoplay=1`;

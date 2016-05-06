@@ -128,7 +128,7 @@ def index(request):
 
 def search_dogs(request):
     last_offset = 0
-    count = 20
+    count = 50
     zip_to_search = request.GET.get('zip_code')
     dogs = []
 
@@ -137,7 +137,7 @@ def search_dogs(request):
 
         last_offset+=count
         dogs.append(dog)
-        if i == 40:
+        if i == 50:
             break
 
     for dog in dogs:
