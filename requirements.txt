@@ -7,5 +7,6 @@ petfinder==0.3
 postgres==2.2.1
 psycopg2==2.6.1
 pytz==2016.4
+pyzipcode==1.0.0
 requests==2.10.0
 whitenoise==3.0
