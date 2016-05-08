@@ -11,7 +11,16 @@ from django.http import JsonResponse
 import petfinder
 from . import settings
 import config
+from pyzipcode import ZipCodeDatabase
 
+zcdb = ZipCodeDatabase()
+
+def RepresentsInt(s):
+    try:
+        int(s)
+        return True
+    except ValueError:
+        return False
 
 # Instantiate the client with your credentials.
 api = petfinder.PetFinderClient(api_key=config.API_KEY, api_secret=config.API_SECRET)
@@ -35,7 +44,7 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(settings.LOGIN_URL)
 
-def saveDog(dog, zip_to_search):
+def saveDog(dog):
     # prevents duplication
     if len(models.Dog.objects.filter(pet_id=dog['shelterPetId'])) > 0:
         return
@@ -45,7 +54,6 @@ def saveDog(dog, zip_to_search):
         return
 
     photos = dog['photos']
-    print 'number of photos', len(photos)
     profile_photo_url = photos[0]['url']
     # for redis integration
     second_photo = photos[1]['url']
@@ -128,26 +136,47 @@ def index(request):
 
 def search_dogs(request):
     last_offset = 0
-    count = 50
-    zip_to_search = request.GET.get('zip_code')
-    dogs = []
+    count = 20
+    location_info = request.GET.get('location').split(',')
+    location = location_info[0]
+    if len(location_info) > 1:
+        state = location_info[1].strip()
 
-    # using enumerate because the "count" parameter does not appear to work consistently
-    for i, dog in enumerate(api.pet_find(output='full',count=count, location=zip_to_search, animal='dog', offset=last_offset, lastOffset=last_offset)):
 
-        last_offset+=count
-        dogs.append(dog)
-        if i == 50:
-            break
+    if not RepresentsInt(location):
+        #using pyzipcode to get zip codes from city because external api search by city is not working.
+        print state
+        all_zips = zcdb.find_zip(city=location) if len(location_info)==1 else zcdb.find_zip(city=location, state=state)
+        zip_codes = [z.zip for j, z in enumerate(all_zips) if j < 10]
+        for z in zip_codes:
+            initial_queried_dogs = api.pet_find(output='full', location=z, animal='dog', offset=last_offset, lastOffset=last_offset)
+            for i, dog in enumerate(initial_queried_dogs):
+                last_offset+=count
+                saveDog(dog)
+                # dogs.append(dog)
+                if i == 10:
+                    break
 
-    for dog in dogs:
-        saveDog(dog, zip_to_search)
+        specific_dogs = models.Dog.objects.filter(city=location)
 
-    specific_dogs = models.Dog.objects.filter(zip_code=zip_to_search)
+    else:
+        initial_queried_dogs = api.pet_find(output='full', location=location, animal='dog', offset=last_offset, lastOffset=last_offset)
+        # using enumerate because the "count" parameter does not appear to work consistently
+        for i, dog in enumerate(initial_queried_dogs):
+            last_offset+=count
+            saveDog(dog)
+            # dogs.append(dog)
+            if i == 20:
+                break
+        specific_dogs = models.Dog.objects.filter(zip_code=location)
+
+
+    # if RepresentsInt(location):
+    # else:
 
     json_dogs = []
-
     for dog in specific_dogs:
         json_dogs.append(dog.serialize())
+    print len(json_dogs), ' dogs found'
 
     return JsonResponse({'dogs': json_dogs})

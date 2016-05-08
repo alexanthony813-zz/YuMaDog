@@ -9,7 +9,7 @@ var App = React.createClass({
     return {
       currentVideo : null,
       videoList : []
-    }
+    };
   },
   handleClick: function(video){
     this.setState({
@@ -17,34 +17,32 @@ var App = React.createClass({
     });
   },
   handleSearch: function(input){
-    if(input==="" || (Number(input) && input.length!==5)){
+    // confirm it is not empty, non number zip
+    if(input==="" && (Number(input) && input.length!==5)){
       return;
     }
  
-    input = (Number(input)) ? {zip_code: input} : {city: input};
+    input = {location: input}
     var result = function(data){
-      console.log('data',data)
       this.setState({
         currentVideo : data.dogs[0],
-        videoList : data.dogs.slice(1)
-      })
-    // window.videoData = data.items;
-    }
+        videoList : data.dogs
+      });
+    };
     
     //ajax call
-    searchDogs(input, result.bind(this))
+    searchDogs(input, result.bind(this));
   },
   componentDidMount: function(){
     // ajax call
     var self = this;
 
     getDogs({}, function(dogs,err){
-      console.log('initial dogs', dogs)
       self.setState({
-        videoList : dogs.dogs.slice(1),
+        videoList : dogs.dogs,
         currentVideo : dogs.dogs[0]
-      })
-    }.bind(self))
+      });
+    }.bind(self));
   },
   render : function(){
     return (

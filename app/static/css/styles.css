@@ -1,6 +1,9 @@
 @import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc2/css/bootstrap-glyphicons.css");
 
-.outer {
+.zip {
+  fill: none;
+  stroke: #CCC;
+  stroke-width: .5px;
 }
 
 .profile_photo{

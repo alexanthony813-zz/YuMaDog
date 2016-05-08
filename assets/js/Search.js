@@ -6,7 +6,7 @@ module.exports = function(props){
   return (
     <div className="search-bar form-inline">
       <input className="form-control" type="text" id="form-control" onChange={
-        _.debounce(function(){props.searchHandler(document.getElementById("form-control").value)},400)}/>
+        _.debounce(function(){props.searchHandler(document.getElementById("form-control").value)},2000)}/>
       <button className="btn hidden-sm-down" >
         <span className="glyphicon glyphicon-search"></span>
       </button>
