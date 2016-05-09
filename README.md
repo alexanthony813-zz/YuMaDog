@@ -1,6 +1,6 @@
 ##Find adoptable dogs around the USA with Yuma Dog!
 
-Tech stack: React.js & Django
+Tech stack: ReactJS & Django
 
 Deployed Version: http://yumadog.herokuapp.com/
 
