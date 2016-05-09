@@ -25,6 +25,7 @@ body {
 }
 
 .search-bar {
+  margin-left: -30%;
   border-radius: 1px;
   background: #fff;
 }
@@ -80,6 +81,12 @@ body {
   background-color:black;
 }
 
+.invalid{
+  font-family:bold;
+  font-size:12px;
+  color:red;
+}
+
 .video-list {
   overflow: auto;
   max-height: 700px;
@@ -112,8 +119,24 @@ body {
   margin-left: 10px;
 }
 
-.invalid{
-  font-family:bold;
-  font-size:12px;
-  color:red;
+#logo{
+  margin-left: 10%;
+  z-index: 100;
+  float:left;
+  margin-top:5px;
+  font-size: 20px;
+  font-family:Tahoma;
 }
+
+#dog{
+  padding-right:6px;
+  padding-bottom: 2px;
+  display:inline;
+  background-color:#4A96ED;
+  color:white;
+  height:40px;
+  width:40px;
+  line-height: 40px;
+  border-radius:5px;
+}
+
