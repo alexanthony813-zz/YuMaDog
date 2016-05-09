@@ -1,7 +1,7 @@
 require('react/lib/DOMProperty').ID_ATTRIBUTE_NAME = 'data-myid';
 var React = require('react');
 var Search = require('./Search');
-console.log('nav')
+
 module.exports= function(props){
   return (
     <nav className="navbar">

@@ -24,8 +24,10 @@ var App = React.createClass({
  
     input = {location: input}
     var result = function(data){
+      var randomIndex = Math.floor(Math.random() * data.dogs.length);
+
       this.setState({
-        currentVideo : data.dogs[0],
+        currentVideo : data.dogs[randomIndex],
         videoList : data.dogs
       });
     };
@@ -37,10 +39,12 @@ var App = React.createClass({
     // ajax call
     var self = this;
 
-    getDogs({}, function(dogs,err){
+    getDogs({}, function(data,err){
+      var randomIndex = Math.floor(Math.random() * data.dogs.length);
+
       self.setState({
-        videoList : dogs.dogs,
-        currentVideo : dogs.dogs[0]
+        videoList : data.dogs,
+        currentVideo : data.dogs[randomIndex]
       });
     }.bind(self));
   },

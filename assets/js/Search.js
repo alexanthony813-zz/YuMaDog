@@ -4,7 +4,7 @@ var _ = require('underscore');
 
 module.exports = function(props){
   return (
-    <div className="search-bar form-inline">
+    <div className="search-bar form-inline" id="search">
       <input className="form-control" type="text" id="form-control" onChange={
         _.debounce(function(){props.searchHandler(document.getElementById("form-control").value)},1000)}/>
       <button className="btn hidden-sm-down" >

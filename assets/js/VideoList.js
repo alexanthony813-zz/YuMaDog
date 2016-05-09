@@ -1,14 +1,15 @@
 require('react/lib/DOMProperty').ID_ATTRIBUTE_NAME = 'data-myid';
 var React = require('react');
 var VideoListEntry = require('./VideoListEntry');
+// var reactB = require('react-bootstrap');
 
 module.exports = function(props){
     if(props.item.length === 0){
       return (<div>Loading...</div>);
     } else {
-      var dogs = shuffle(props.item);
+      var dogs = shuffle(props.item.slice());
       return (
-          <div>
+          <div className="video-list">
             {dogs.map(function(dog, i){
               return <div key={dog.name}><VideoListEntry item={dog} clickHandler={props.clickHandler} /></div>
             })}
@@ -16,21 +17,7 @@ module.exports = function(props){
          )
     }
 };
-        // <div className="video-list media">
-        //   <VideoListEntry item={props.item[0]} clickHandler={props.clickHandler} />
-        //   <VideoListEntry item={props.item[1]} clickHandler= {props.clickHandler} />
-        //   <VideoListEntry item={props.item[2]} clickHandler={props.clickHandler} />
-        //   <VideoListEntry item={props.item[3]} clickHandler={props.clickHandler} />
-        //   <VideoListEntry item={props.item[4]} clickHandler={props.clickHandler} />
-        //  </div>
-      // var dogs = props.item.map(function(item){
-      //   console.log('item\n', item)
-      //   return (
-      //     <div class='container-fluid'>
-      //       <VideoListEntry item={item} clickHandler={props.clickHandler} />
-      //     </div>
-      //     )
-      // })
+
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
