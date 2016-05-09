@@ -17,12 +17,12 @@ var App = React.createClass({
     });
   },
   handleSearch: function(input){
-    // confirm it is not empty, non number zip
-    if(input==="" && (Number(input) && input.length!==5)){
+    if(!validate(input)){
+      console.log('invalid')
       return;
     }
- 
-    input = {location: input}
+
+    input = {location: input};
     var result = function(data){
       var randomIndex = Math.floor(Math.random() * data.dogs.length);
 
@@ -92,33 +92,18 @@ function searchDogs(specs, callback){
   })  
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+function validate(input){
+  var statePattern = /[a-zA-Z]+,\s?[A-Z0-9]{2}$/g;
+  
+  if(!input.match(statePattern)){
+    $('#prompt').text("Invalid input, please enter: in 'San Francisco, CA' format").addClass('invalid');
+    $('#form-control').on('input', function(){
+      $('#prompt').text("Ex: 'Tampa, FL'").removeClass('invalid');
+    })
+    return false;
+  }
+  return true;
+}
 
 
 

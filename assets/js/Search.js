@@ -5,11 +5,12 @@ var _ = require('underscore');
 module.exports = function(props){
   return (
     <div className="search-bar form-inline" id="search">
-      <input className="form-control" type="text" id="form-control" onChange={
-        _.debounce(function(){props.searchHandler(document.getElementById("form-control").value)},1000)}/>
+      <input className="form-control" id="form-control" type="text" placeholder="Enter 'City, State'" onChange={
+        _.debounce(function(){props.searchHandler(document.getElementById("form-control").value)},400)}/>
       <button className="btn hidden-sm-down" >
         <span className="glyphicon glyphicon-search"></span>
       </button>
+      <span id="prompt">Ex: "Tampa, FL"</span>
     </div> 
   );
 };
