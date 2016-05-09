@@ -18,25 +18,22 @@ var App = React.createClass({
   },
   handleSearch: function(input){
     if(!validate(input)){
-      console.log('invalid')
+      console.log('invalid');
       return;
     }
-
     input = {location: input};
     var result = function(data){
-      var randomIndex = Math.floor(Math.random() * data.dogs.length);
-
       this.setState({
-        currentVideo : data.dogs[randomIndex],
+        currentVideo : data.dogs[0],
         videoList : data.dogs
       });
+
+      $('#loading').addClass('hidden');
     };
     
-    //ajax call
     searchDogs(input, result.bind(this));
   },
   componentDidMount: function(){
-    // ajax call
     var self = this;
 
     getDogs({}, function(data,err){
@@ -80,6 +77,8 @@ function getDogs(specs, callback){
 }
 
 function searchDogs(specs, callback){
+  $('#loading').removeClass('hidden');
+
   $.ajax({
     url: 'dogs/search/',
     type: 'GET',

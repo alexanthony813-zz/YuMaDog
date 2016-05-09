@@ -11,6 +11,7 @@ module.exports= function(props){
       <div className="col-md-6 col-md-offset-2">
         <Search searchHandler={props.searchHandler}/>
       </div>
+      <img id="loading" className="hidden" src="https://www.wpfaster.org/wp-content/uploads/2013/06/loading-gif.gif" />
     </nav>
   );
 }

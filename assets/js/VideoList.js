@@ -7,7 +7,8 @@ module.exports = function(props){
     if(props.item.length === 0){
       return (<div>Loading...</div>);
     } else {
-      var dogs = shuffle(props.item.slice());
+      var dogs = (!initialized) ? props.item.slice() : shuffle(props.item.slice());
+      var initialized = true;
       return (
           <div className="video-list">
             {dogs.map(function(dog, i){

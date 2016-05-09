@@ -142,12 +142,7 @@ def search_dogs(request):
     if len(location_info) > 1:
         state = location_info[1].strip()
 
-
-
     if not RepresentsInt(location):
-        specific_dogs = models.Dog.objects.filter(city=location)
-        if len(specific_dogs)>40:
-            return
         #using pyzipcode to get zip codes from city because external api search by city is not working.
         all_zips = zcdb.find_zip(city=location) if len(location_info)==1 else zcdb.find_zip(city=location, state=state)
         zip_codes = [z.zip for j, z in enumerate(all_zips) if j < 10]
@@ -156,30 +151,21 @@ def search_dogs(request):
             for i, dog in enumerate(initial_queried_dogs):
                 last_offset+=count
                 saveDog(dog)
-                # dogs.append(dog)
                 if i == 10:
                     break
 
-        specific_dogs = models.Dog.objects.order_by('?').filter(city=location)[:50]
+        specific_dogs = models.Dog.objects.filter(city=location).order_by('?')[:50]
 
     else:
-        specific_dogs = models.Dog.objects.filter(city=location)
-        if len(specific_dogs)>40:
-            return
-
         initial_queried_dogs = api.pet_find(output='full', location=location, animal='dog', offset=last_offset, lastOffset=last_offset)
-        # using enumerate because the "count" parameter does not appear to work consistently
+        # using enumerate because the "count" parameter does not work consistently
         for i, dog in enumerate(initial_queried_dogs):
             last_offset+=count
             saveDog(dog)
-            # dogs.append(dog)
             if i == 20:
                 break
-        specific_dogs = models.Dog.objects.order_by('?').filter(zip_code=location)[:50]
 
-
-    # if RepresentsInt(location):
-    # else:
+        specific_dogs = models.Dog.objects.filter(zip_code=location).order_by('?')[:50]
 
     json_dogs = []
     for dog in specific_dogs:

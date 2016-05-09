@@ -88,6 +88,7 @@ body {
 }
 
 .video-list {
+  margin-top:9px;
   overflow: auto;
   max-height: 700px;
   background: #fff;
@@ -126,6 +127,10 @@ body {
   margin-top:5px;
   font-size: 20px;
   font-family:Tahoma;
+}
+
+.hidden{
+  visibility: hidden;
 }
 
 #dog{
