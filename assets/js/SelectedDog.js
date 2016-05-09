@@ -9,8 +9,8 @@ module.exports = React.createClass({
     } else {
       console.log('propers',this.props.item)
       return(
-        <div className="video-player">
-          <div className="video-player-details">
+        <div className="selected-dog">
+          <div className="selected-dog-details">
             <div className="info-container container-fluid">
               <div className="dog-info">
                 <h3>{this.props.item["name"]}</h3>

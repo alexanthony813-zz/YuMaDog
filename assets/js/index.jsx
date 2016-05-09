@@ -1,19 +1,19 @@
 require('react/lib/DOMProperty').ID_ATTRIBUTE_NAME = 'data-myid';
 var React = require('react');
 var Nav = require('./Nav');
-var VideoPlayer = require('./VideoPlayer');
-var VideoList = require('./VideoList');
+var SelectedDog = require('./SelectedDog');
+var DogList = require('./DogList');
 
 var App = React.createClass({
   getInitialState:function(){
     return {
-      currentVideo : null,
-      videoList : []
+      currentDog : null,
+      dogList : []
     };
   },
   handleClick: function(video){
     this.setState({
-      currentVideo : video
+      currentDog : video
     });
   },
   handleSearch: function(input){
@@ -24,8 +24,8 @@ var App = React.createClass({
     input = {location: input};
     var result = function(data){
       this.setState({
-        currentVideo : data.dogs[0],
-        videoList : data.dogs
+        currentDog : data.dogs[0],
+        dogList : data.dogs
       });
 
       $('#loading').addClass('hidden');
@@ -40,8 +40,8 @@ var App = React.createClass({
       var randomIndex = Math.floor(Math.random() * data.dogs.length);
 
       self.setState({
-        videoList : data.dogs,
-        currentVideo : data.dogs[randomIndex]
+        dogList : data.dogs,
+        currentDog : data.dogs[randomIndex]
       });
     }.bind(self));
   },
@@ -50,10 +50,10 @@ var App = React.createClass({
       <div>
         <Nav searchHandler={this.handleSearch} />
         <div className="col-md-7">
-          <VideoPlayer item = {this.state.currentVideo} />
+          <SelectedDog item = {this.state.currentDog} />
         </div>
         <div className="col-md-5">
-          <VideoList clickHandler = {this.handleClick} item = {this.state.videoList} />
+          <DogList clickHandler = {this.handleClick} item = {this.state.dogList} />
         </div>
       </div>
     );
