@@ -7,7 +7,6 @@ module.exports = React.createClass({
     if(!this.props.item){
       return (<div>Loading...</div>)
     } else {
-      console.log('propers',this.props.item)
       return(
         <div className="selected-dog">
           <div className="selected-dog-details">
