@@ -3,7 +3,10 @@ var React = require('react');
 
 module.exports = React.createClass({
   
-  render:function(){
+  shouldComponentUpdate: function(nextProps, nextState){
+    return nextState.currentDog.name !== this.state.currentDog.name;
+  },
+  render: function(){
     if(!this.props.item){
       return (<div>Loading...</div>)
     } else {
