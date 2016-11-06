@@ -11,14 +11,13 @@ var App = React.createClass({
       dogList : []
     };
   },
-  handleClick: function(video){
+  handleClick: function(clickedDog){
     this.setState({
-      currentDog : video
+      currentDog : clickedDog
     });
   },
   handleSearch: function(input){
     if(!validate(input)){
-      console.log('invalid');
       return;
     }
     input = {location: input};
